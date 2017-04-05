@@ -63,8 +63,8 @@ class Application extends Container
 
     public function bootstrap()
     {
-        $this->singleton(\Planfox\Config\Repository::class, function(){
-            $config = new \Planfox\Config\Repository();
+        $this->singleton(\Planfox\Component\Config\Repository::class, function(){
+            $config = new \Planfox\Component\Config\Repository();
             $config->setDirectory($this->configPath());
             return $config;
         }, 'config');
