@@ -1,0 +1,25 @@
+{
+  "name": "planfox/planfox",
+  "description": "Planfox",
+  "keywords": [],
+  "license": "MIT",
+  "homepage": "https://github.com/planfox/planfox",
+  "support": {
+    "issues": "https://github.com/planfox/planfox/issues",
+    "source": "https://github.com/planfox/planfox"
+  },
+  "authors": [
+    {
+      "name": "Gary Liao",
+      "email": "liaogling@gmail.com"
+    }
+  ],
+  "require": {
+    "php": ">=5.3"
+  },
+  "autoload": {
+    "psr-4": {
+      "Planfox\\": ""
+    }
+  }
+}
