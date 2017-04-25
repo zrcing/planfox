@@ -60,7 +60,6 @@ class Container implements ContainerInterface
                 } else {
                     $this->instances[$abstract] = $object;
                 }
-
             } else {
                 $this->instances[$abstract] = call_user_func($closure);
             }

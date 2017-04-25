@@ -15,10 +15,15 @@ class Application extends Container
      */
     protected $basePath;
 
+    public function __get($name)
+    {
+        return $this->make($name);
+    }
+
     /**
      * Create a new Planfox application instance.
      *
-     * @param  string\null  $basePath
+     * @param  string|null  $basePath
      */
     public function __construct($basePath = null)
     {
@@ -26,6 +31,7 @@ class Application extends Container
             $this->setBasePath($basePath);
         }
         $this->registerBaseBindings();
+        $this->registerCoreContainer();
         $this->registerCoreContainerAliases();
         $this->bootstrap();
     }
@@ -56,9 +62,21 @@ class Application extends Container
         static::setInstance($this);
     }
 
+    public function registerCoreContainer()
+    {
+        $modules = [
+            \Planfox\Foundation\Request\Repository::class
+        ];
+        $this->addBinding($modules);
+    }
 
     public function registerCoreContainerAliases()
     {
+        $aliases = [
+            'request'                  => \Planfox\Foundation\Request\Repository::class,
+        ];
+
+        $this->addAlias($aliases);
     }
 
     public function bootstrap()
@@ -69,10 +87,8 @@ class Application extends Container
             return $config;
         }, 'config');
 
-        // 载入应用程序模块
         $this->addBinding($this->make('config')->get('app.modules'));
 
-        // 载入应用程序模块别名
         $this->addAlias($this->make('config')->get('app.aliases'));
     }
 }
