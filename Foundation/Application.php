@@ -73,7 +73,7 @@ class Application extends Container
     public function registerCoreContainerAliases()
     {
         $aliases = [
-            'request'                  => \Planfox\Foundation\Request\Repository::class,
+            'request' => \Planfox\Foundation\Request\Repository::class,
         ];
 
         $this->addAlias($aliases);
