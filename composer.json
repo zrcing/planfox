@@ -20,6 +20,9 @@
   "autoload": {
     "psr-4": {
       "Planfox\\": ""
-    }
+    },
+    "files": [
+      "Foundation/Planfox.php"
+    ]
   }
 }
