@@ -21,6 +21,9 @@
     "psr-4": {
       "Planfox\\": ""
     },
+    "exclude-from-classmap": [
+      "/Tests/"
+    ],
     "files": [
       "Foundation/Planfox.php"
     ]
