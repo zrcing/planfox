@@ -65,7 +65,8 @@ class Application extends Container
     public function registerCoreContainer()
     {
         $modules = [
-            \Planfox\Foundation\Request\Repository::class
+            \Planfox\Foundation\Request\Repository::class,
+            \Planfox\Foundation\Session\Session::class
         ];
         $this->addBinding($modules);
     }
@@ -74,6 +75,7 @@ class Application extends Container
     {
         $aliases = [
             'request' => \Planfox\Foundation\Request\Repository::class,
+            'session' => \Planfox\Foundation\Session\Session::class
         ];
 
         $this->addAlias($aliases);
