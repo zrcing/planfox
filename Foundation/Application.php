@@ -15,6 +15,8 @@ class Application extends Container
      */
     protected $basePath;
 
+    protected $usageConfigComponent;
+
     public function __get($name)
     {
         return $this->make($name);
@@ -24,12 +26,14 @@ class Application extends Container
      * Create a new Planfox application instance.
      *
      * @param  string|null  $basePath
+     * @param boolean $usageConfigComponent
      */
-    public function __construct($basePath = null)
+    public function __construct($basePath = null, $usageConfigComponent = true)
     {
         if ($basePath) {
             $this->setBasePath($basePath);
         }
+        $this->setUsageConfigComponent($usageConfigComponent);
         $this->registerBaseBindings();
         $this->registerCoreContainer();
         $this->registerCoreContainerAliases();
@@ -46,6 +50,11 @@ class Application extends Container
     {
         $this->basePath = rtrim($basePath, '\/');
         return $this;
+    }
+
+    public function setUsageConfigComponent($usageConfigComponent)
+    {
+        $this->usageConfigComponent = $usageConfigComponent;
     }
 
     public function configPath()
@@ -83,14 +92,16 @@ class Application extends Container
 
     public function bootstrap()
     {
-        $this->singleton(\Planfox\Component\Config\Repository::class, function(){
-            $config = new \Planfox\Component\Config\Repository();
-            $config->setDirectory($this->configPath());
-            return $config;
-        }, 'config');
+        if ($this->usageConfigComponent) {
+            $this->singleton(\Planfox\Component\Config\Repository::class, function () {
+                $config = new \Planfox\Component\Config\Repository();
+                $config->setDirectory($this->configPath());
+                return $config;
+            }, 'config');
 
-        $this->addBinding($this->make('config')->get('app.modules'));
+            $this->addBinding($this->make('config')->get('app.modules'));
 
-        $this->addAlias($this->make('config')->get('app.aliases'));
+            $this->addAlias($this->make('config')->get('app.aliases'));
+        }
     }
 }
