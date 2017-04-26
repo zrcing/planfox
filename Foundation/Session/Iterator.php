@@ -29,12 +29,6 @@ class Iterator implements \Iterator
     public function next()
     {
         $this->key = next($this->keys);
-//        do
-//        {
-//            $this->key=next($this->keys);
-//            var_dump($this->key);echo "\n";
-//        }
-//        while(!isset($_SESSION[$this->key]) && $this->key!==false);
     }
 
     public function rewind()
