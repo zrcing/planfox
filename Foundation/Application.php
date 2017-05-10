@@ -52,6 +52,11 @@ class Application extends Container
         return $this;
     }
 
+    public function getBasePath()
+    {
+        return $this->basePath;
+    }
+
     public function setUsageConfigComponent($usageConfigComponent)
     {
         $this->usageConfigComponent = $usageConfigComponent;
