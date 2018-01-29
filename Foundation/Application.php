@@ -17,6 +17,8 @@ class Application extends Container
 
     protected $usageConfigComponent;
 
+    protected $configComponentDirectory;
+
     public function __get($name)
     {
         return $this->make($name);
@@ -27,13 +29,15 @@ class Application extends Container
      *
      * @param  string|null  $basePath
      * @param boolean $usageConfigComponent
+     * @param string|null
      */
-    public function __construct($basePath = null, $usageConfigComponent = true)
+    public function __construct($basePath = null, $usageConfigComponent = true, $configComponentDirectory = null)
     {
         if ($basePath) {
             $this->setBasePath($basePath);
         }
         $this->setUsageConfigComponent($usageConfigComponent);
+        $this->configComponentDirectory = $configComponentDirectory;
         $this->registerBaseBindings();
         $this->registerCoreContainer();
         $this->registerCoreContainerAliases();
@@ -98,9 +102,13 @@ class Application extends Container
     public function bootstrap()
     {
         if ($this->usageConfigComponent) {
-            $this->singleton(\Planfox\Component\Config\Repository::class, function () {
+            $configDirectory = $this->defaultConfigPath();
+            if ($this->configComponentDirectory) {
+                $configDirectory = $this->configComponentDirectory;
+            }
+            $this->singleton(\Planfox\Component\Config\Repository::class, function () use ($configDirectory) {
                 $config = new \Planfox\Component\Config\Repository();
-                $config->setDirectory($this->defaultConfigPath());
+                $config->setDirectory($configDirectory);
                 return $config;
             }, 'config');
 

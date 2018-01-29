@@ -11,10 +11,10 @@ class Planfox
 
     protected static $debug = false;
 
-    public static function createApplication($basePath, $usageConfigComponent = true)
+    public static function createApplication($basePath, $usageConfigComponent = true, $configComponentDirectory = null)
     {
         if (is_null(self::$app)) {
-            self::$app = new \Planfox\Foundation\Application($basePath, $usageConfigComponent);
+            self::$app = new \Planfox\Foundation\Application($basePath, $usageConfigComponent, $configComponentDirectory);
         }
         return self::$app;
     }
