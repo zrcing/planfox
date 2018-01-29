@@ -62,7 +62,7 @@ class Application extends Container
         $this->usageConfigComponent = $usageConfigComponent;
     }
 
-    public function configPath()
+    public function defaultConfigPath()
     {
         return $this->basePath . DIRECTORY_SEPARATOR . 'config';
     }
@@ -100,7 +100,7 @@ class Application extends Container
         if ($this->usageConfigComponent) {
             $this->singleton(\Planfox\Component\Config\Repository::class, function () {
                 $config = new \Planfox\Component\Config\Repository();
-                $config->setDirectory($this->configPath());
+                $config->setDirectory($this->defaultConfigPath());
                 return $config;
             }, 'config');
 
