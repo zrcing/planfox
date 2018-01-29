@@ -31,7 +31,7 @@ class Container implements ContainerInterface
     public static function getInstance()
     {
         if (is_null(static::$instance)) {
-            throw new Exception('Container not initialized');
+            throw new Exception('The container does not initialize.');
         }
         return static::$instance;
     }
@@ -86,7 +86,7 @@ class Container implements ContainerInterface
     public function addBinding($bindings)
     {
         if (! is_array($bindings)) {
-            throw new Exception('The error of the parameters');
+            throw new Exception('The parameter is wrong.');
         }
         foreach ($bindings as $v) {
             $this->bindings[$v] = $v;
@@ -108,7 +108,7 @@ class Container implements ContainerInterface
     public function addAlias($aliases)
     {
         if (! is_array($aliases)) {
-            throw new Exception('The error of the parameters');
+            throw new Exception('The parameter is wrong.');
         }
         foreach ($aliases as $k => $v) {
             $this->aliases[$k] = $v;
